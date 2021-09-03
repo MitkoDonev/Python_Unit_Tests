@@ -1,15 +1,16 @@
 from unittest import TestCase
+from unittest.mock import patch
 from employee import Employee
 
 
 class TestEmployee(TestCase):
     @classmethod
     def setUpClass(cls):
-        print("setupClass")
+        print("Setup Class")
 
     @classmethod
     def tearDownClass(cls):
-        print("teardownClass")
+        print("Teardown Class")
 
     def setUp(self):
         print("Create Object Instanse")
@@ -51,3 +52,20 @@ class TestEmployee(TestCase):
 
         self.assertEqual(self.employee1.pay, 52500.525)
         self.assertEqual(self.employee2.pay, 63000.94500000001)
+
+    def test_monthly_schedule(self):
+        print("Test Monthly Schedule")
+
+        with patch("employee.requests.get") as mocked_get:
+            mocked_get.return_value.ok = True
+            mocked_get.return_value.text = "Success"
+
+            schedule = self.employee1.monthly_schedule("May")
+            mocked_get.assert_called_with("http://company.com/Schafer/May")
+            self.assertEqual(schedule, "Success")
+
+            mocked_get.return_value.ok = False
+
+            schedule = self.employee2.monthly_schedule("June")
+            mocked_get.assert_called_with("http://company.com/Smith/June")
+            self.assertEqual(schedule, "Bad Response!")
