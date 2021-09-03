@@ -1,3 +1,6 @@
+import requests
+
+
 class Employee:
     raise_value = 1.05
 
@@ -40,3 +43,10 @@ class Employee:
 
     def apply_raise(self):
         self.__pay = float(self.pay * self.raise_value)
+
+    def monthly_schedule(self, month):
+        response = requests.get(f"http://company.com/{self.last_name}/{month}")
+        if response.ok:
+            return response.text
+        else:
+            return "Bad Response!"
