@@ -21,7 +21,7 @@ def test_scott_data(db):
 
 
 def test_steve_data(db):
-    scott_data = db.get_data("Steve")
-    assert scott_data["id"] != 1
-    assert scott_data["name"] == "Steve"
-    assert scott_data["result"] == "fail"
+    steve_data = db.get_data("Steve")
+    assert steve_data["id"] != 1
+    assert steve_data["name"] == "Steve"
+    assert steve_data["result"] == "fail"
