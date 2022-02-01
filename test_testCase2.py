@@ -32,4 +32,5 @@ class TestAddFishToAquarium(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestAddFishToAquarium)
+    test_result = unittest.TextTestRunner(verbosity=2).run(suite)
